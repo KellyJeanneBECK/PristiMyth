@@ -1,0 +1,39 @@
+name: CI
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-build-backend:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1 (SHA)
+      - uses: actions/setup-node@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.0 (SHA)
+        with:
+          nosde-version: "24" # recomended version for production (active LTS)
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  lint-build-frontend:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1 (SHA)
+      - uses: actions/setup-node@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.0 (SHA)
+        with:
+          node-version: "24" # recomended version for production (active LTS)
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
