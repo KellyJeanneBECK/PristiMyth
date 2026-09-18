@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0 (SHA)
         with:
           node-version: "24" # recommended version for production (active LTS)
-          cache: false
+          package-manager-cache: false
       - run: npm ci
       - run: npx prisma generate
       - run: npm run lint
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0 (SHA)
         with:
           node-version: "24" # recomended version for production (active LTS)
-          cache: false
+          package-manager-cache: false
       - run: npm ci
       - run: npm run lint
       - run: npm run build
