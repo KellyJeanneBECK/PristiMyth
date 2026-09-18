@@ -58,3 +58,12 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Generated with npx prisma generate command line
+src/generated/prisma
+
+# Agents skills generated with npx prisma init --output ../src/generated/prisma
+.claude/skills/
+.windsurf/skills/
+.agents/skills/
+skills-lock.json

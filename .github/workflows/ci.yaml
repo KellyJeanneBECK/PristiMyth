@@ -19,8 +19,9 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1 (SHA)
       - uses: actions/setup-node@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.0 (SHA)
         with:
-          nosde-version: "24" # recomended version for production (active LTS)
+          node-version: "24" # recommended version for production (active LTS)
       - run: npm ci
+      - run: npx prisma generate
       - run: npm run lint
       - run: npm run build
 
