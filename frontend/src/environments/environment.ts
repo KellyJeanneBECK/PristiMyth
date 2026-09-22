@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiRrl: 'https://pristimyth.onrender.com',
+  apiUrl: 'https://pristimyth.onrender.com',
 };
