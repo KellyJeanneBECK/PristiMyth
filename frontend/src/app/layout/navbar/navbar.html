@@ -1,0 +1,20 @@
+<nav aria-label="navigation">
+  <!-- Mobile toggle -->
+  <button
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="isMenuOpen()"
+    type="button"
+    class="nav-title nav-btn mobile"
+  >
+    {{ titleMenu() }}
+  </button>
+  <!-- Desktop title -->
+  <p class="nav-title desktop">Navigation</p>
+  <!-- Links -->
+  <ul [class.open]="isMenuOpen()" class="links">
+    <li><a routerLink="/">00/ Accueil</a></li>
+  </ul>
+</nav>
+
+<!-- Blur Effect -->
+<div [class.open-blur]="isMenuOpen()" (click)="toggleMenu()"></div>

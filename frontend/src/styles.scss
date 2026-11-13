@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Tulpen One';
+  src: url('/fonts/TulpenOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url('/fonts/AnonymousPro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  /* --- Fonts --- */
+  --font-title: 'Tulpen One', sans-serif;
+  --font-body: 'Anonymous Pro', monospace;
+
+  /* --- Colors --- */
+  --color-light: #edf4eb;
+  --color-dark: #020006;
+  --color-primary: #3cffd7;
+  --color-secondary: #10dce0;
+  --color-highlight: #380c6e;
+  --color-input-bg: #08191b;
+
+  /* --- Borders --- */
+  --border-main: solid var(--color-light) 2px;
+  --border-nav: 4px solid var(--color-secondary);
+
+  /* --- Sizes --- */
+  --size-main-title: 4rem;
+  --size-main-padding-x: 2dvw;
+  --size-main-padding-y: 16px;
+  --size-page-bottom-margin: calc(
+    var(--size-nav-title) - (var(--size-nav-shadow-y)) + var(--size-nav-title-padding) * 2 +
+      var(--size-nav-padding-y)
+  );
+  /* --- Sizes Nav --- */
+  --size-nav-title: 1.25rem;
+  --size-nav-title-padding: 4px;
+  --size-nav-padding-y: 24px;
+  --size-nav-shadow-x: -16px;
+  --size-nav-shadow-y: -8px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+body {
+  background-color: var(--color-dark);
+}
+
+h1 {
+  font-family: var(--font-title);
+  font-weight: 400;
+}
+
+.highlight-text {
+  p {
+    display: inline;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    line-height: 1.5;
+    padding: 0 0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    white-space: pre-line;
+  }
+
+  .main-text {
+    font-size: 1.25rem;
+  }
+}
