@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 @font-face {
   font-family: 'Tulpen One';
   src: url('/fonts/TulpenOne-Regular.ttf') format('truetype');
@@ -43,6 +45,15 @@
   --size-nav-padding-y: 24px;
   --size-nav-shadow-x: -16px;
   --size-nav-shadow-y: -8px;
+
+  @media (min-width: $breakpoint-desktop) {
+    /* --- Sizes --- */
+    --size-main-title: 8rem;
+    --size-main-padding-x: 5dvw;
+    --size-main-padding-y: 5dvh;
+    /* --- Sizes Nav --- */
+    --size-nav-shadow-x: 16px;
+  }
 }
 
 * {
@@ -76,5 +87,9 @@ h1 {
 
   .main-text {
     font-size: 1.25rem;
+
+    @media (min-width: $breakpoint-desktop) {
+      font-size: 1.5rem;
+    }
   }
 }

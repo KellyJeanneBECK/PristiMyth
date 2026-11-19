@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 main {
   width: 100dvw;
   height: 100dvh;
@@ -10,6 +12,13 @@ main {
     top: var(--size-main-padding-y);
     left: var(--size-main-padding-x);
     z-index: 1;
+    container-type: inline-size;
+    overflow: hidden;
+
+    @media (min-width: $breakpoint-desktop) {
+      height: calc(100% - var(--size-main-padding-y) * 2);
+      width: 60%;
+    }
 
     h1 {
       width: fit-content;
@@ -18,11 +27,15 @@ main {
       font-size: var(--size-main-title);
       position: relative;
       z-index: 2;
+
+      @media (min-width: $breakpoint-desktop) {
+        margin-top: 16px;
+      }
     }
 
     .title-decoration {
       font-family: var(--font-title);
-      font-size: clamp(96px, 90dvw, 128px);
+      font-size: 45cqw;
       color: transparent;
       -webkit-text-stroke: 1px var(--color-primary);
       filter: drop-shadow(4px 0 0 var(--color-secondary));
@@ -30,6 +43,10 @@ main {
       top: 0;
       left: 2px;
       z-index: 1;
+
+      @media (min-width: $breakpoint-desktop) {
+        -webkit-text-stroke: 2px var(--color-primary);
+      }
     }
   }
 
@@ -38,6 +55,12 @@ main {
     width: 90%;
     right: var(--size-main-padding-x);
     bottom: var(--size-page-bottom-margin);
+
+    @media (min-width: $breakpoint-desktop) {
+      height: 50%;
+      width: 65%;
+      bottom: var(--size-main-padding-y);
+    }
   }
 
   .content-border {
@@ -51,6 +74,10 @@ main {
     position: absolute;
     z-index: 3;
     padding: var(--size-main-padding-y) var(--size-main-padding-x);
+
+    @media (min-width: $breakpoint-desktop) {
+      padding: 12px 24px;
+    }
   }
   .content-container::after {
     content: '';
@@ -69,4 +96,8 @@ main::after {
   bottom: 0;
   left: var(--size-main-padding-x);
   z-index: 10;
+
+  @media (min-width: $breakpoint-desktop) {
+    height: var(--size-main-padding-y);
+  }
 }

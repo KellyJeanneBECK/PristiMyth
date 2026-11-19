@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 nav {
   position: fixed;
   bottom: 0;
@@ -6,11 +8,21 @@ nav {
   max-width: calc(90dvw - 24px);
   z-index: 99;
 
+  @media (min-width: $breakpoint-desktop) {
+    left: 0;
+  }
+
   .mobile {
     display: inline;
+    @media (min-width: $breakpoint-desktop) {
+      display: none;
+    }
   }
   .desktop {
     display: none;
+    @media (min-width: $breakpoint-desktop) {
+      display: block;
+    }
   }
 
   .nav-title {
@@ -23,11 +35,13 @@ nav {
     padding: var(--size-nav-title-padding) calc(var(--size-nav-title-padding) * 2);
     box-shadow: var(--size-nav-shadow-x) var(--size-nav-shadow-y) var(--color-secondary);
     z-index: 100;
+    width: fit-content;
   }
   .nav-btn {
     position: fixed;
     bottom: 0;
     right: 0;
+    text-wrap: nowrap;
   }
 
   .links {
@@ -40,6 +54,16 @@ nav {
     width: 90dvw;
     max-height: 90dvh;
     overflow-y: auto;
+
+    @media (min-width: $breakpoint-desktop) {
+      display: block;
+      border-right: var(--border-nav);
+      border-left: none;
+      padding: var(--size-nav-padding-y) 0 var(--size-main-padding-y) var(--size-main-padding-x);
+      width: fit-content;
+      max-width: calc(15dvw + var(--size-main-padding-x));
+      max-height: 40dvh;
+    }
 
     li {
       a {
