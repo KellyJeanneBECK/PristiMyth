@@ -12,7 +12,14 @@ export class PrismaService
     const adapter = new PrismaPg({
       connectionString: configService.getOrThrow<string>('DATABASE_URL'),
     });
-    super({ adapter });
+    super({
+      adapter,
+      omit: {
+        user: {
+          passwordHash: true,
+        },
+      },
+    });
   }
 
   async onModuleInit() {
