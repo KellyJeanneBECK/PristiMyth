@@ -11,7 +11,7 @@ export class UsersService {
   }
 
   private normalizeEmail(email?: string): string | null {
-    if (email === undefined) {
+    if (!email) {
       return null;
     }
     return this.normalizeIdentifier(email) || null;

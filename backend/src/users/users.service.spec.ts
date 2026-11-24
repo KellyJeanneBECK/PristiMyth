@@ -87,7 +87,7 @@ describe('UsersService', () => {
         searchWhere: { email: 'pseudoriginal@example.com' },
       },
     ])(
-      'should search the normalized identifier with "$input"',
+      'should slook up the user by pseudo or email depending on "$input"',
       async ({ input, searchWhere }) => {
         const user = buildUser();
         findUniqueMock.mockResolvedValue(user);
