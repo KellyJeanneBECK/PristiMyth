@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { PrismaService } from '../prisma.service';
-import { type User } from '../generated/prisma/client';
+import { Prisma, type User } from '../generated/prisma/client';
+import { ConflictException } from '@nestjs/common';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -77,6 +78,48 @@ describe('UsersService', () => {
         });
       },
     );
+
+    it('should throw a ConfictException when the pseudo or email already exists', async () => {
+      createMock.mockRejectedValue(
+        new Prisma.PrismaClientKnownRequestError('Unique constraint fail', {
+          code: 'P2002',
+          clientVersion: 'test',
+        }),
+      );
+      await expect(
+        service.createUser({
+          pseudo: 'already-exists',
+          email: 'already-exixts@example.com',
+          passwordHash: 'password-hash',
+        }),
+      ).rejects.toThrow(ConflictException);
+    });
+
+    it('should rethrow unexpected errors without converting them', async () => {
+      createMock.mockRejectedValue(new Error('unexpected error'));
+      await expect(
+        service.createUser({
+          pseudo: 'pseudoriginal',
+          passwordHash: 'password-hash',
+        }),
+      ).rejects.toThrow('unexpected error');
+    });
+
+    it('should not convert other Prisma errors into a conflict', async () => {
+      createMock.mockRejectedValue(
+        new Prisma.PrismaClientKnownRequestError('Foreign key constraint', {
+          code: 'P2003',
+          clientVersion: 'test',
+        }),
+      );
+      await expect(
+        service.createUser({
+          pseudo: 'already-exists',
+          email: 'already-exixts@example.com',
+          passwordHash: 'password-hash',
+        }),
+      ).rejects.not.toThrow(ConflictException);
+    });
   });
 
   describe('findByIdentifierForLogin', () => {
