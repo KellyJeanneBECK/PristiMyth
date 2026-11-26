@@ -3,17 +3,28 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './services/auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { ConflictException } from '@nestjs/common';
+import type { AuthenticatedRequest } from './types/authenticated-request.type';
+import type { PublicUser } from './types/public-user.type';
 
 describe('AuthController', () => {
   let controller: AuthController;
 
   const authService = {
     register: jest.fn(),
+    login: jest.fn(),
   };
 
   const registerDto: RegisterDto = {
     pseudo: 'pseudoriginal',
     password: 'password1234',
+  };
+
+  const publicUser: PublicUser = {
+    id: 'uuid',
+    pseudo: 'pseudoriginal',
+    email: 'pseudoriginal@example.com',
+    role: 'USER',
+    createdAt: new Date(),
   };
 
   beforeEach(async () => {
@@ -45,6 +56,27 @@ describe('AuthController', () => {
       await expect(controller.register(registerDto)).rejects.toThrow(
         ConflictException,
       );
+    });
+  });
+
+  describe('login', () => {
+    const request = { user: publicUser } as AuthenticatedRequest;
+    const tokenResponse = { accessToken: 'signed-token' };
+
+    it('should pass the authenticated user to AuthService.login', () => {
+      authService.login.mockReturnValue(tokenResponse);
+
+      controller.login(request);
+
+      expect(authService.login).toHaveBeenCalledWith(publicUser);
+    });
+
+    it('should return the token given by AuthService.login', () => {
+      authService.login.mockReturnValue(tokenResponse);
+
+      const result = controller.login(request);
+
+      expect(result).toBe(tokenResponse);
     });
   });
 });
