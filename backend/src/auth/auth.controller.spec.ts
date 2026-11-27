@@ -26,6 +26,7 @@ describe('AuthController', () => {
     role: 'USER',
     createdAt: new Date(),
   };
+  const request = { user: publicUser } as AuthenticatedRequest;
 
   beforeEach(async () => {
     jest.resetAllMocks();
@@ -60,7 +61,6 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    const request = { user: publicUser } as AuthenticatedRequest;
     const tokenResponse = { accessToken: 'signed-token' };
 
     it('should pass the authenticated user to AuthService.login', () => {
@@ -77,6 +77,13 @@ describe('AuthController', () => {
       const result = controller.login(request);
 
       expect(result).toBe(tokenResponse);
+    });
+  });
+
+  describe('me', () => {
+    it('should return the authenticated user', () => {
+      const result = controller.me(request);
+      expect(result).toBe(publicUser);
     });
   });
 });

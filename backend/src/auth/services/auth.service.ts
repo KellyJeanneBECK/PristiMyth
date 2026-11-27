@@ -3,8 +3,8 @@ import { PasswordHashService } from './password-hash.service';
 import { RegisterDto } from '../dto/register.dto';
 import { UsersService } from '../../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { type User } from '../../generated/prisma/client';
 import { type PublicUser } from '../types/public-user.type';
+import { toPublicUser } from '../mappers/to-public-user';
 
 @Injectable()
 export class AuthService {
@@ -46,16 +46,6 @@ export class AuthService {
       return null;
     }
 
-    return this.toPublicUser(user);
-  }
-
-  private toPublicUser(user: User): PublicUser {
-    return {
-      id: user.id,
-      pseudo: user.pseudo,
-      email: user.email,
-      role: user.role,
-      createdAt: user.createdAt,
-    };
+    return toPublicUser(user);
   }
 }
